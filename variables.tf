@@ -19,3 +19,23 @@ variable "flavor_id" {
   type    = string
   default = "c1-r1-d10"
 }
+
+variable "user_name" {
+  type    = string
+  default = "Username"
+}
+
+variable "tenant_name" {
+  type    = string
+  default = "Tenant name"
+}
+
+variable "password" {
+  type    = string
+  default = "Password"
+}
+
+variable "public_network_id" { # not required not same as other users??
+  type    = string
+  default = "fd401e50-9484-4883-9672-a2814089528c"
+}
