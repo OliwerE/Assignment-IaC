@@ -4,3 +4,4 @@ terraform.tfstate
 terraform.tfstate.backup
 .terraform.tfstate.lock.info
 oe222ez-2dv013-ht22-openrc.sh
+inventory
