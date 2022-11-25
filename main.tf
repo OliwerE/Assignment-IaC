@@ -115,7 +115,7 @@ resource "local_file" "inventory" {
   filename = "${path.module}/inventory"
 
   provisioner "local-exec" {
-    command = "ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -u ubuntu -i inventory ./configuration.yml --extra-vars='ansible_ssh_private_key_file=${var.identity_file}'"
+    command = "ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -u ubuntu -i inventory ./ansible-playbook.yml --extra-vars='ansible_ssh_private_key_file=${var.identity_file}'"
   }
 
   depends_on = [
