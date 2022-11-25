@@ -1,0 +1,41 @@
+- name: Install webserver as user ubuntu
+  hosts: webservers
+  remote_user: ubuntu
+  become: yes
+  tasks:
+    - name: Install Apache2
+      apt: 
+        name: apache2 
+        update_cache: yes 
+        state: latest
+
+- name: Change old index.html to default page and copy new index.html to the server
+  hosts: webservers
+  remote_user: ubuntu
+  become: yes
+  tasks:
+    - name: Change old index.html to default page
+      copy: 
+        remote_src: True 
+        src: /var/www/html/index.html 
+        dest: /var/www/html/index.html.default 
+    - name:  Copy new index.html to the server
+      copy:
+        src: ./files/index.html
+        dest: /var/www/html/index.html
+
+- name: Change http port
+  hosts: webservers
+  remote_user: ubuntu
+  become: yes
+  tasks: 
+    - name: Update ports.conf with new configuration file
+      template:
+        src: ./files/ports.conf.j2
+        dest: /etc/apache2/ports.conf
+      notify: restart-web-server
+  handlers:
+    - name: restart-web-server
+      service:
+        name: apache2
+        state: restarted
