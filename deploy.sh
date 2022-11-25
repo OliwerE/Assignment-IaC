@@ -1,19 +1,21 @@
-echo "Enter Openstack username:"
-read username
-export TF_VAR_user_name=$username
+if [ -z $OS_USERNAME ] || [ -z $OS_PROJECT_NAME ] || [ -z $OS_PASSWORD ] || [ -z $OS_AUTH_URL ]; then
+  echo "Log into openstack using your rc file before running this script!"
+else
+  if [ -z $TF_VAR_key_name ]; then
+    echo "Export variable 'TF_VAR_key_name' before running this script!"
+  elif [ -z $TF_VAR_identity_file ]; then
+    echo "Export variable 'TF_VAR_identity_file' before running this script!"
+  else
+    # Set Terraform variables
+    export TF_VAR_os_username=$OS_USERNAME
+    export TF_VAR_os_tenant_name=$OS_PROJECT_NAME
+    export TF_VAR_os_password=$OS_PASSWORD
+    export TF_VAR_os_auth_url=$OS_AUTH_URL
 
-echo "Enter Openstack tenant name:"
-read tenant
-export TF_VAR_tenant_name=$tenant
+    echo "Init Terraform..."
+    terraform init
 
-echo "Enter Openstack password:"
-read password
-export TF_VAR_password=$password
-
-echo "Init Terraform..."
-terraform init
-
-echo "Applying Terraform..."
-terraform apply -auto-approve
-
-echo "Execution has been successful."
+    echo "Applying Terraform and Ansible..."
+    terraform apply -auto-approve
+  fi
+fi

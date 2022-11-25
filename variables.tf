@@ -20,22 +20,27 @@ variable "flavor_id" {
   default = "c1-r1-d10"
 }
 
-variable "user_name" {
+variable "public_network_id" { # not required not same as other users??
   type    = string
-  default = "Username"
+  default = "fd401e50-9484-4883-9672-a2814089528c"
 }
 
-variable "tenant_name" {
+variable "os_username" {
   type    = string
-  default = "Tenant name"
+  default = "username"
 }
 
-variable "password" {
+variable "os_tenant_name" {
+  type    = string
+  default = "Tenant"
+}
+
+variable "os_password" {
   type    = string
   default = "Password"
 }
 
-variable "public_network_id" { # not required not same as other users??
+variable "os_auth_url" {
   type    = string
-  default = "fd401e50-9484-4883-9672-a2814089528c"
+  default = "auth"
 }
